@@ -10,7 +10,8 @@
 #include <fcntl.h>
 #include <string.h>
 #include <sys/stat.h>
-
+//Leonardo David Camacho Garcia
+//16650228
 #define MAXDATASIZE 512
 #define PORT 3551
 #define BACKLOG 2
@@ -50,16 +51,8 @@ void main()
          printf("Error en accept()\n");
          exit(-1);
       }
-
-     // printf("Se obtuvo una conexión desde %s\n",
-     //        inet_ntoa(client.sin_addr) ); 
-      /* que mostrará la IP del cliente */
-
-      //send(fd2,"Bienvenido a mi servidor.\n",22,0); 
-      /* que enviará el mensaje de bienvenida al cliente */
-      //write(fd2,"Esto es un mensaje",20);
       menu(&fd2);
-      close(fd2); /* cierra fd2 */
+      close(fd2);
    }
 }
 
@@ -142,5 +135,7 @@ void menu(int *fd2){
 		case 4:
 		exit(0);
 	}
+        //Leonardo David Camacho Garcia
+        //16650228
 	printf("\n La opcion seleccionaste fue: %d",opc);
 }

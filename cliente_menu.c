@@ -10,7 +10,8 @@
 #include <sys/stat.h>
 #include <sys/un.h>
 #include <stdio.h>          
-
+//Leonardo David Camacho Garcia
+//16650228
 struct persona{
 	char nombre[100];
 	int edad;
@@ -58,7 +59,6 @@ int main(int argc, char *argv[])
    }
 
    if ((numbytes=read(fd,buf,MAXDATASIZE)) == -1){  
-      /* llamada a recv() */
       printf("Error en recv() \n");
       exit(-1);
    }
@@ -66,20 +66,17 @@ int main(int argc, char *argv[])
    buf[numbytes]='\0';
 
    printf("Mensaje del Servidor: %s\n",buf); 
-   /* muestra el mensaje de bienvenida del servidor =) */
-   //read(fd,buf,20);
-   //printf("El mensaje del servidor es: %s",buf);
    scanf("%d",&opc);
    write(fd,&opc,sizeof(opc));
    switch(opc){
-      //1.-Enviar/Recibir Mensajes
-      case 1:
+               
+      case 1: //1.-Enviar/Recibir Mensajes
          while(1){
             printf("\n1.-Enviar \n2.-Recibir \n3.-Salir\n");
             scanf("%d",&opc_msg);
             strcpy(buf,"");
             if(opc_msg==1){
-               printf("\n[CLIENTE]-Introduce el mensaje que deseas enviar: ");
+               printf("\n++CLIENTE++-Escribe el mensaje que deseas mandar: ");
                gets(buf);
                gets(buf);
                opc=strlen(buf);
@@ -90,21 +87,19 @@ int main(int argc, char *argv[])
                read(fd,&tam,sizeof(tam));
                read(fd,buf,tam);
                buf[tam]='\0';
-               printf("\n[SERVIDOR]-Mensaje: %s\n",buf);
+               printf("\n++SERVIDOR++-Mensaje: %s\n",buf);
             }else{
                break;
             }
          }
       break;
-      //2.-Enviar Archivo
-      case 2:
-         printf("\n¿Que desea hacer?\n \n1.-Enviar\n2.-Salir\n");
+      case 2:  //2.-Enviar Archivo
+         printf("\nQue deseas realizar?\n \n1.-Enviar\n2.-Salir\n");
          scanf("%d",&opc_a);
          gets(limpiar);
             if(opc_a==1){
-		char* fs_name = "/root/Sockets/proyecto2/miarchivo.txt";
-        	//char sdbuf[LENGTH]; 
-        	printf("[CLIENTE] Enviando al servidor  %s ", fs_name);
+		char* fs_name = "/Leonardo/adminredes/scoket/muchotexto.txt";
+        	printf("++CLIENTE++ Enviando al servidor  %s ", fs_name);
         	FILE *fs = fopen(fs_name, "r");
         	if(fs == NULL){
             		printf("ERROR: Archivo no encontrado %s.\n", fs_name);
@@ -115,24 +110,23 @@ int main(int argc, char *argv[])
         	int fs_block_sz; 
         	while((fs_block_sz = fread(buf, sizeof(char), MAXDATASIZE, fs)) > 0){
             		if(send(fd,buf, fs_block_sz, 0) < 0){
-                		fprintf(stderr, "ERROR: Error al enviar el archivo  %s. (errno = %d)\n", fs_name, errno);
+                		fprintf(stderr, "ERROR: Error no se pudo enviar el archivo  %s. (errno = %d)\n", fs_name, errno);
                 		break;
            		}
             		bzero(buf, MAXDATASIZE);
         	}
-        	printf("\nArchivo enviado con exito %s\n", fs_name);
+        	printf("\nArchivo enviado correctamente %s\n", fs_name);
 	    }else{
                exit(0);
             }
       break;
       case 3:
-	//3.-Enviar comando
 	while(1){
             printf("\n1.-Enviar \n2.-Recibir\n 3.-Salir\n");
             scanf("%d",&opc_com);
             strcpy(buf,"");
             if(opc_com==1){
-               printf("\n[CLIENTE]-Introduce el comando que deseas enviar: ");
+               printf("\n++CLIENTE++-Introduce el comando que deseas mandar: ");
                gets(buf);
                gets(buf);
                opc=strlen(buf);
@@ -142,7 +136,7 @@ int main(int argc, char *argv[])
 		read(fd,&tam,sizeof(tam));
                read(fd,buf,tam);
                buf[tam]='\0';
-               printf("\n[SERVIDOR]-Comando: %s\n",buf);
+               printf("\n++SERVIDOR++-Comando: %s\n",buf);
 	       system(buf);
 	    }else{
 	    	exit(0);
@@ -152,6 +146,7 @@ int main(int argc, char *argv[])
       case 4:
       exit(0);
    }
-   close(fd);   /* cerramos fd =) */
-
+   //Leonardo David Camacho Garcia
+//16650228
+   close(fd);
 }
